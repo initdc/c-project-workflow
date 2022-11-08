@@ -3,7 +3,7 @@ name: Build Once Time
 env:
   ZIG_VERSION: master
   REGISTRY: docker.io
-  IMAGENAME: initdc/zig-demo
+  IMAGENAME: initdc/c-demo
 
 on:
   workflow_dispatch:

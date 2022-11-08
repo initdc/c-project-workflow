@@ -1,6 +1,6 @@
-# [Zig Project Workflow](https://github.com/initdc/zig-project-workflow)
+# [C Project Workflow](https://github.com/initdc/c-project-workflow)
 
-> Project written by zig, you just need build once time.
+> Project written by c, you just need build once time.
 
 ## Build on Linux Host
 

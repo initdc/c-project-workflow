@@ -3,3 +3,8 @@ zig-out/
 
 target
 upload
+
+*.a
+*.gch
+
+a.out
