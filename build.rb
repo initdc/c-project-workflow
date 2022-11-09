@@ -147,7 +147,11 @@ targets = TEST_TARGETS if test_bin
 targets = LESS_TARGETS if less_bin
 
 if run_test
-    zig_test catch_error
+    puts TEST_CMD
+    test_result = system TEST_CMD
+    if catch_error and !test_result
+        return
+    end
 end
 
 if clean_all
