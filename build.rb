@@ -133,15 +133,51 @@ LESS_TARGETS = [
     "x86_64-linux-musl",
 ]
 
+CC = [
+    "gcc-aarch64-linux-gnu",
+    "gcc-arm-linux-gnueabi",
+    "gcc-arm-linux-gnueabihf",
+    "gcc-mips-linux-gnu",
+    "gcc-mips64-linux-gnuabi64",
+    "gcc-mips64el-linux-gnuabi64",
+    "gcc-mipsel-linux-gnu",
+    "gcc-powerpc-linux-gnu",
+    "gcc-powerpc64-linux-gnu",
+    "gcc-powerpc64le-linux-gnu",
+    "gcc-riscv64-linux-gnu",
+    "gcc-s390x-linux-gnu",
+    "gcc-i686-linux-gnu",
+    "gcc-x86-64-linux-gnu",
+    "gcc-x86-64-linux-gnux32",
+    "gcc-mingw-w64-i686",
+    "gcc-mingw-w64-x86-64",
+    "musl-dev",
+    "musl-tools"
+]
+
+def run_install
+    cmd = "sudo apt-get install -y #{CC.join(" ")}"
+    puts cmd
+    IO.popen(cmd) do |r|
+        puts r.readlines
+    end
+end
+
 version = get_version ARGV, 0, VERSION
 
 test_bin = ARGV[0] == "test" || false
 less_bin = ARGV[0] == "less" || false
 
+install_cc = ARGV.include? "--install-cc" || false
 clean_all = ARGV.include? "--clean-all" || false
 clean = ARGV.include? "--clean" || false
 run_test = ARGV.include? "--run-test" || false
 catch_error = ARGV.include? "--catch-error" || false
+
+if install_cc
+    run_install
+    return
+end
 
 targets = get_zig_targets || TARGETS
 targets = TEST_TARGETS if test_bin
