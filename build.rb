@@ -224,7 +224,8 @@ GO_C.each do |target_platform, targets|
                     end
                 end
             else
-                existsThen "ln", "#{TARGET_DIR}/#{targets}/#{RELEASE}/#{PROGRAM}", "#{docker}/#{PROGRAM}"
+                target = targets
+                existsThen "ln", "#{TARGET_DIR}/#{target}/#{RELEASE}/#{PROGRAM}", "#{docker}/#{PROGRAM}"
             end
         end
     else
@@ -245,7 +246,8 @@ GO_C.each do |target_platform, targets|
                 end
             end
         else
-            existsThen "ln", "#{TARGET_DIR}/#{targets}/#{RELEASE}/#{PROGRAM}", "#{docker}/#{PROGRAM}"
+            target = targets
+            existsThen "ln", "#{TARGET_DIR}/#{target}/#{RELEASE}/#{PROGRAM}", "#{docker}/#{PROGRAM}"
         end
     end
 end
