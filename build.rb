@@ -212,11 +212,8 @@ GO_C.each do |target_platform, targets|
             if targets.kind_of?(Array)
                 for target in targets
                     tg_array = target.split("-")
-                    abi = tg_array.last
-                    tg_arch = tg_array[0]
-                    tg_os = tg_array[1]
-                    abi = tg_array[2] if tg_arch == "arm"
-                    abi = tg_array.first if tg_os == "gcc"
+                    abi = tg_array[2]
+                    abi = tg_array.first if abi.nil?
 
                     existsThen "ln", "#{TARGET_DIR}/#{target}/#{RELEASE}/#{PROGRAM}", "#{docker}/#{PROGRAM}-#{abi}"
                     Dir.chdir docker do
@@ -236,9 +233,8 @@ GO_C.each do |target_platform, targets|
         if targets.kind_of?(Array)
             for target in targets
                 tg_array = target.split("-")
-                abi = tg_array.last
-                tg_os = tg_array[1]
-                abi = tg_array.first if tg_os == "gcc"
+                abi = tg_array[2]
+                abi = tg_array.first if abi.nil?
 
                 existsThen "ln", "#{TARGET_DIR}/#{target}/#{RELEASE}/#{PROGRAM}", "#{docker}/#{PROGRAM}-#{abi}"
                 Dir.chdir docker do
