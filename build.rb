@@ -2,9 +2,9 @@ require "./version"
 require "./get-version"
 require "./get-gcc-targets"
 
-PROGRAM = "c-demo"
+PROGRAM = "v"
 # VERSION = "v0.0.1"
-SOURCE = "src/main.c lib/*.c"
+SOURCE = "make"
 OUTPUT_ARG = "-o"
 RELEASE_BUILD = true
 RELEASE_ARG = RELEASE_BUILD == true ? "-O2" : ""
@@ -186,15 +186,19 @@ for target in targets
     program_bin = !windows ? PROGRAM : "#{PROGRAM}.exe"
     target_bin = !windows ? target : "#{target}.exe"
 
-    gcc = target
+    cc_env = "CC=#{target}"
 
     dir = "#{TARGET_DIR}/#{target}/#{RELEASE}"
     `mkdir -p #{dir}`
 
-    cmd = "#{gcc} #{SOURCE} #{RELEASE_ARG} #{OUTPUT_ARG} #{dir}/#{program_bin}"
+    cmd = "#{cc_env} #{SOURCE}"
     puts cmd
-    system cmd
+    Dir.chdir "v" do
+        system cmd
+        puts
+    end
 
+    existsThen "mv", "v/v", "#{dir}/#{program_bin}"
     existsThen "ln", "#{dir}/#{program_bin}", "#{UPLOAD_DIR}/#{target_bin}"
 end
 

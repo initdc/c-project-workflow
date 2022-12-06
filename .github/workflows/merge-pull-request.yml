@@ -20,6 +20,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Build Artifact
         run: |
+          git clone --depth 1 --quiet https://github.com/vlang/v
+
           ruby build.rb --install-cc
           ruby build.rb test
       - name: Upload Artifact
